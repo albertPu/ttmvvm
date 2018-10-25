@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ttmvvm</string>
+    <string name="bottom_home">试看区</string>
+    <string name="bottom_vip">会员区</string>
+    <string name="bottom_idf">分类</string>
+    <string name="bottom_live">直播</string>
+    <string name="bottom_min">我的</string>
+</resources>
