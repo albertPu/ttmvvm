@@ -9,10 +9,11 @@
                 type="tt.cc.com.ttmvvm.ui.main.home.HomeViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <android.support.v4.view.ViewPager
                 android:id="@+id/home_view_pager"
@@ -22,21 +23,46 @@
                 app:pageItems="@{viewModel.pageItems}">
         </android.support.v4.view.ViewPager>
 
-        <Button
-                android:id="@+id/button"
+        <RelativeLayout
                 app:layout_constraintTop_toBottomOf="@id/home_view_pager"
-                android:onClick="@{viewModel::onClick}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="改变数据"/>
+                android:id="@+id/rv_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.test}"/>
+            <android.support.v7.widget.CardView
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                    <TextView
+                            android:layout_width="2dp"
+                            android:layout_height="20dp"
+                            android:background="@color/main_red"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:text="试看区"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
 
         <android.support.v7.widget.RecyclerView
-                app:layout_constraintTop_toBottomOf="@id/button"
+                app:layout_constraintTop_toBottomOf="@id/rv_title"
                 app:bindRecItems="@{viewModel.recItems}"
                 app:bindLayoutManager="@{viewModel.layoutManager}"
                 android:layout_width="match_parent"
