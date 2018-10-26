@@ -3,6 +3,7 @@ package tt.cc.com.ttmvvm.ui.main
 import android.arch.lifecycle.ViewModelProviders
 import tt.cc.com.ttmvvm.R
 import tt.cc.com.ttmvvm.databinding.MainFragmentBinding
+import tt.cc.com.ttmvvm.ui.base.BaseFragment
 
 class MainFragment : BaseFragment<MainFragmentBinding>() {
 

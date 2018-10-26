@@ -5,7 +5,7 @@ import android.databinding.ObservableField
 
 
 class DataBean {
-    var imageUrl= ObservableField<String>()
-    var title=ObservableField<String>()
+    var imageUrl = ""
+    var title = ""
 
 }

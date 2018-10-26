@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="normol_text">#555555</color>
     <color name="select_color_red">#D81B60</color>
+    <color name="white">#ffffff</color>
+    <color name="main_red">#f9043a</color>
 </resources>

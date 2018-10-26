@@ -31,7 +31,7 @@ dependencies {
     configurations {
         all*.exclude group: 'com.android.support', module: 'support-v4'
     }
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -41,4 +41,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    //导入retrofit
+    compile 'com.google.code.gson:gson:2.8.5'
+    //Gson 库
+    // 下面两个是RxJava 和 RxAndroid
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    compile 'io.reactivex.rxjava2:rxjava:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //转换器，请求结果转换成Model
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    implementation 'com.github.mmin18:realtimeblurview:1.1.0'
+    implementation 'com.android.support:design:28.0.0'
 }

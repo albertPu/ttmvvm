@@ -2,9 +2,10 @@ package tt.cc.com.ttmvvm
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import tt.cc.com.ttmvvm.ui.base.BaseActivity
 import tt.cc.com.ttmvvm.ui.main.MainFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

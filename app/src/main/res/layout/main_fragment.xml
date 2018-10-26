@@ -14,6 +14,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/main"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.main.MainFragment">
@@ -29,127 +30,135 @@
 
         <LinearLayout
                 android:id="@+id/bottom_switch"
-                android:elevation="5dp"
-                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/home_container"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="wrap_content">
 
             <LinearLayout
-                    android:id="@+id/bottom_home"
-                    android:onClick="@{viewModel::onClick}"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:elevation="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
 
-                <ImageView
-                        android:src="@{viewModel.homeBottomIcon}"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                <LinearLayout
+                        android:id="@+id/bottom_home"
+                        android:onClick="@{viewModel::onClick}"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-                <TextView
-                        android:textColor="@{viewModel.homeBottomColor}"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bottom_home"/>
+                    <ImageView
+                            android:src="@{viewModel.homeBottomIcon}"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
 
-            </LinearLayout>
+                    <TextView
+                            android:textColor="@{viewModel.homeBottomColor}"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_home"/>
 
-            <LinearLayout
-                    android:onClick="@{viewModel::onClick}"
-                    android:id="@+id/bottom_vip"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                </LinearLayout>
 
-                <ImageView
-                        android:src="@{viewModel.vipBottomIcon}"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                <LinearLayout
+                        android:onClick="@{viewModel::onClick}"
+                        android:id="@+id/bottom_vip"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-                <TextView
-                        android:textColor="@{viewModel.vipBottomColor}"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bottom_vip"/>
+                    <ImageView
+                            android:src="@{viewModel.vipBottomIcon}"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
 
-            </LinearLayout>
+                    <TextView
+                            android:textColor="@{viewModel.vipBottomColor}"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_vip"/>
 
-            <LinearLayout
-                    android:onClick="@{viewModel::onClick}"
-                    android:id="@+id/bottom_dif"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                </LinearLayout>
 
-                <ImageView
-                        android:src="@{viewModel.diffBottomIcon}"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                <LinearLayout
+                        android:onClick="@{viewModel::onClick}"
+                        android:id="@+id/bottom_dif"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-                <TextView
-                        android:textColor="@{viewModel.diffBottomColor}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bottom_idf"/>
+                    <ImageView
+                            android:src="@{viewModel.diffBottomIcon}"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
 
-            </LinearLayout>
+                    <TextView
+                            android:textColor="@{viewModel.diffBottomColor}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_idf"/>
 
-            <LinearLayout
-                    android:onClick="@{viewModel::onClick}"
-                    android:id="@+id/bottom_live"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                </LinearLayout>
 
-                <ImageView
-                        android:src="@{viewModel.livePlaBottomIcon}"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                <LinearLayout
+                        android:onClick="@{viewModel::onClick}"
+                        android:id="@+id/bottom_live"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-                <TextView
-                        android:textColor="@{viewModel.livePlaBottomColor}"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bottom_live"/>
+                    <ImageView
+                            android:src="@{viewModel.livePlaBottomIcon}"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
 
-            </LinearLayout>
+                    <TextView
+                            android:textColor="@{viewModel.livePlaBottomColor}"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_live"/>
 
-            <LinearLayout
-                    android:onClick="@{viewModel::onClick}"
-                    android:id="@+id/bottom_min"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                </LinearLayout>
 
-                <ImageView
-                        android:src="@{viewModel.minBottomIcon}"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                <LinearLayout
+                        android:onClick="@{viewModel::onClick}"
+                        android:id="@+id/bottom_min"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-                <TextView
-                        android:textColor="@{viewModel.minBottomColor}"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bottom_min"/>
+                    <ImageView
+                            android:src="@{viewModel.minBottomIcon}"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
 
+                    <TextView
+                            android:textColor="@{viewModel.minBottomColor}"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_min"/>
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
 
     </android.support.constraint.ConstraintLayout>
 

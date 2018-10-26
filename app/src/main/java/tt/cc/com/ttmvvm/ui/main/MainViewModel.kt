@@ -1,15 +1,13 @@
 package tt.cc.com.ttmvvm.ui.main
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import android.graphics.drawable.Drawable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.view.View
 import tt.cc.com.ttmvvm.R
+import tt.cc.com.ttmvvm.ui.base.BaseFragment
 import tt.cc.com.ttmvvm.ui.main.dif.DifFragment
 import tt.cc.com.ttmvvm.ui.main.home.HomeFragment
 import tt.cc.com.ttmvvm.ui.main.live.LiveFragment
@@ -52,7 +50,7 @@ class MainViewModel : ViewModel() {
         rest()
         currentFragment = fragments[0]
         homeBottomIcon.set(getDrawable(R.drawable.icon_shikan_pressed))
-        homeBottomColor.set(getColor(R.color.select_color_red))
+        homeBottomColor.set(getColor(R.color.main_red))
     }
 
 
@@ -61,30 +59,30 @@ class MainViewModel : ViewModel() {
         when (view.id) {
             R.id.bottom_home -> {
                 homeBottomIcon.set(getDrawable(R.drawable.icon_shikan_pressed))
-                homeBottomColor.set(getColor(R.color.select_color_red))
+                homeBottomColor.set(getColor(R.color.main_red))
                 switchFragment(fragments[0])
             }
             R.id.bottom_vip -> {
                 vipBottomIcon.set(getDrawable(R.drawable.icon_vip_pressed))
-                vipBottomColor.set(getColor(R.color.select_color_red))
+                vipBottomColor.set(getColor(R.color.main_red))
                 switchFragment(fragments[1])
             }
             R.id.bottom_dif
             -> {
                 diffBottomIcon.set(getDrawable(R.drawable.icon_fenlei_pressed))
-                diffBottomColor.set(getColor(R.color.select_color_red))
+                diffBottomColor.set(getColor(R.color.main_red))
                 switchFragment(fragments[2])
             }
             R.id.bottom_live
             -> {
                 livePlaBottomIcon.set(getDrawable(R.drawable.icon_zhibo_pressed))
-                livePlaBottomColor.set(getColor(R.color.select_color_red))
+                livePlaBottomColor.set(getColor(R.color.main_red))
                 switchFragment(fragments[3])
             }
             R.id.bottom_min
             -> {
                 minBottomIcon.set(getDrawable(R.drawable.icon_user_pressed))
-                minBottomColor.set(getColor(R.color.select_color_red))
+                minBottomColor.set(getColor(R.color.main_red))
                 switchFragment(fragments[4])
             }
 
@@ -111,7 +109,7 @@ class MainViewModel : ViewModel() {
 
     private fun switchFragment(targetFragment: Fragment) {
         val transaction = childFragmentManager?.beginTransaction()
-        if (!targetFragment.isAdded()) {
+        if (!targetFragment.isAdded) {
             transaction
                 ?.hide(currentFragment as Fragment)
                 ?.add(R.id.home_container, targetFragment)

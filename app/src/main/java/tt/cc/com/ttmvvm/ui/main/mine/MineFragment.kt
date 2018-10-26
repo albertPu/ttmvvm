@@ -3,7 +3,7 @@ package tt.cc.com.ttmvvm.ui.main.mine
 import android.arch.lifecycle.ViewModelProviders
 import tt.cc.com.ttmvvm.R
 import tt.cc.com.ttmvvm.databinding.MineFragmentBinding
-import tt.cc.com.ttmvvm.ui.main.BaseFragment
+import tt.cc.com.ttmvvm.ui.base.BaseFragment
 
 class MineFragment : BaseFragment<MineFragmentBinding>() {
 

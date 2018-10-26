@@ -1,4 +1,4 @@
-package tt.cc.com.ttmvvm.ui.main
+package tt.cc.com.ttmvvm.ui.base
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
