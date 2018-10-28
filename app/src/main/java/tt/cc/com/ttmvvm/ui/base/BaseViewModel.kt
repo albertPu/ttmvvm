@@ -11,4 +11,8 @@ open class BaseViewModel : ViewModel() {
 
     var lifecycleOwner: WeakReference<LifecycleOwner>? = null
 
+    override fun onCleared() {
+        super.onCleared()
+        lifecycleOwner = null
+    }
 }

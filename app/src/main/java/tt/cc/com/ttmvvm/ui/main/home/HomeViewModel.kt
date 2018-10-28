@@ -22,8 +22,8 @@ class HomeViewModel : BaseViewModel(), LifecycleObserver {
 
 
     private var bannerList = ArrayList<MuPagerItem<BannerVo>>()
-    private var muPagerItems = MultiRecItem(R.layout.item_one_rec, ArrayList<MovieVo>())
-    private var movieVos = ArrayList<MultiRecItem<MovieVo>>().apply { add(muPagerItems) }
+    private var movieVos =
+        ArrayList<MultiRecItem<MovieVo>>().apply { add(MultiRecItem(R.layout.item_one_rec, ArrayList())) }
 
     var pageItems =
         MutableLiveData<ArrayList<MuPagerItem<BannerVo>>>().apply { value = bannerList }
@@ -43,7 +43,7 @@ class HomeViewModel : BaseViewModel(), LifecycleObserver {
         )
         ApiStore.create(Api::class.java).getMovies(1).compose(ResponseTransformer.handleResult()).subscribeBy(
             onNext = {
-                muPagerItems.data.addAll(it)
+                movieVos[0].data.addAll(it)
                 recItems.value = movieVos
             },
             onError = {}
