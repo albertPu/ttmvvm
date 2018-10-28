@@ -1,52 +1,38 @@
 package tt.cc.com.ttmvvm.ui.adapter.reclcerview;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.databinding.*;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import tt.cc.com.ttmvvm.BR;
 
+import java.util.ArrayList;
+
 /**
  * created by Albert
  */
 public class MultiRecyclerViewAdapter {
 
-    @BindingAdapter({"bindRecItems", "bindLayoutManager"})
-    public static <T> void bindRecItems(RecyclerView recyclerView, ObservableArrayList<MultiRecItem<T>> data, RecyclerView.LayoutManager layoutManager) {
-        if (data.size() == 0) {
+    @BindingAdapter({"bindRecItems", "bindLayoutManager", "bindLifecycleOwner"})
+    public static <T> void bindRecItems(RecyclerView recyclerView, LiveData<ArrayList<MultiRecItem<T>>> data, RecyclerView.LayoutManager layoutManager, LifecycleOwner lifecycleOwner) {
+        if (data.getValue().size() == 0) {
 
-        } else if (data.size() == 1) {
+        } else if (data.getValue().size() == 1) {
             if (recyclerView.getAdapter() == null) {
-                final SingleRecyclerAdapter<T> adapter = new SingleRecyclerAdapter<>(data.get(0), recyclerView.getContext());
+                final SingleRecyclerAdapter<T> adapter = new SingleRecyclerAdapter<>(data.getValue().get(0), recyclerView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
-                data.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<MultiRecItem<T>>>() {
+                data.observe(lifecycleOwner, new Observer<ArrayList<MultiRecItem<T>>>() {
                     @Override
-                    public void onChanged(ObservableList<MultiRecItem<T>> sender) {
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onItemRangeChanged(ObservableList<MultiRecItem<T>> sender, int positionStart, int itemCount) {
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onItemRangeInserted(ObservableList<MultiRecItem<T>> sender, int positionStart, int itemCount) {
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onItemRangeMoved(ObservableList<MultiRecItem<T>> sender, int fromPosition, int toPosition, int itemCount) {
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onItemRangeRemoved(ObservableList<MultiRecItem<T>> sender, int positionStart, int itemCount) {
+                    public void onChanged(@Nullable ArrayList<MultiRecItem<T>> multiRecItems) {
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -56,29 +42,9 @@ public class MultiRecyclerViewAdapter {
                 final MultiRecyclerAdapter<T> adapter = new MultiRecyclerAdapter<>(data, recyclerView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
-                data.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<MultiRecItem<T>>>() {
+                data.observe(lifecycleOwner, new Observer<ArrayList<MultiRecItem<T>>>() {
                     @Override
-                    public void onChanged(ObservableList<MultiRecItem<T>> sender) {
-                        adapter.flushData();
-                    }
-
-                    @Override
-                    public void onItemRangeChanged(ObservableList<MultiRecItem<T>> sender, int positionStart, int itemCount) {
-                        adapter.flushData();
-                    }
-
-                    @Override
-                    public void onItemRangeInserted(ObservableList<MultiRecItem<T>> sender, int positionStart, int itemCount) {
-                        adapter.flushData();
-                    }
-
-                    @Override
-                    public void onItemRangeMoved(ObservableList<MultiRecItem<T>> sender, int fromPosition, int toPosition, int itemCount) {
-                        adapter.flushData();
-                    }
-
-                    @Override
-                    public void onItemRangeRemoved(ObservableList<MultiRecItem<T>> sender, int positionStart, int itemCount) {
+                    public void onChanged(@Nullable ArrayList<MultiRecItem<T>> multiRecItems) {
                         adapter.flushData();
                     }
                 });
@@ -138,14 +104,14 @@ public class MultiRecyclerViewAdapter {
 
     private static class MultiRecyclerAdapter<T> extends RecyclerView.Adapter {
 
-        ObservableArrayList<MultiRecItem<T>> data;
+        LiveData<ArrayList<MultiRecItem<T>>> data;
         Context context;
         ObservableArrayList<DataTypeBean> dataTypeBeans;
 
-        MultiRecyclerAdapter(ObservableArrayList<MultiRecItem<T>> data, Context context) {
+        MultiRecyclerAdapter(LiveData<ArrayList<MultiRecItem<T>>> data, Context context) {
             this.data = data;
             this.context = context;
-            dataTypeBeans = resolveDatas(data);
+            dataTypeBeans = resolveDatas(data.getValue());
         }
 
         @NonNull
@@ -230,7 +196,7 @@ public class MultiRecyclerViewAdapter {
             }
         }
 
-        private ObservableArrayList<DataTypeBean> resolveDatas(ObservableArrayList<MultiRecItem<T>> data) {
+        private ObservableArrayList<DataTypeBean> resolveDatas(ArrayList<MultiRecItem<T>> data) {
             ObservableArrayList<DataTypeBean> beans = new ObservableArrayList<>();
             int position = 0;
             int currentRes = 0;
@@ -252,7 +218,7 @@ public class MultiRecyclerViewAdapter {
         }
 
         public void flushData() {
-            dataTypeBeans = resolveDatas(data);
+            dataTypeBeans = resolveDatas(data.getValue());
             this.notifyDataSetChanged();
         }
     }
