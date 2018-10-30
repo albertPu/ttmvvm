@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="tt.cc.com.ttmvvm.ui.video.VideoViewModel"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+        <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+                android:id="@+id/mVideoView"
+                android:layout_width="match_parent"
+                android:transitionName="IMG_TRANSITION"
+                android:layout_height="250dp"
+                android:background="@color/color_black"/>
+
+        <ImageView
+                android:layout_below="@id/mVideoView"
+                app:bindBlurImageUrl="@{viewModel.imgUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
+
+        <android.support.v7.widget.RecyclerView
+                app:bindRecItems="@{viewModel.items}"
+                app:bindLayoutManager="@{viewModel.layoutManager}"
+                app:bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
+                app:itemListener="@{viewModel.itemClickListener}"
+                android:layout_below="@id/mVideoView"
+                android:id="@+id/ry_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+</layout>

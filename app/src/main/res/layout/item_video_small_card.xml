@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+                name="item"
+                type="tt.cc.com.ttmvvm.model.page.MovieVo"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp">
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_darker_gray"/>
+
+
+        <android.support.v7.widget.CardView
+                android:id="@+id/iv_video_small_card"
+                android:layout_width="135dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="2dp"
+                >
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    app:bindImageUrl="@{item.coverImageUrl}"
+                    tools:src="@color/color_darker_gray"/>
+        </android.support.v7.widget.CardView>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_toEndOf="@+id/iv_video_small_card">
+
+            <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="5dp"
+                    tools:text="@{item.videoName}"/>
+
+            <TextView
+                    android:id="@+id/tv_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/color_darker_gray"
+                    android:textSize="12sp"
+                    tools:text='@{"#"+item.typeName}'/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

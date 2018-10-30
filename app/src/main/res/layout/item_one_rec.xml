@@ -26,6 +26,7 @@
                     android:layout_height="match_parent">
 
                 <ImageView
+                        android:transitionName="IMG_TRANSITION"
                         app:bindImageUrl="@{item.coverImageUrl}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

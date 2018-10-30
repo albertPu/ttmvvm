@@ -7,6 +7,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import tt.cc.com.tt.model.Response
 import tt.cc.com.ttmvvm.model.MemberVO
+import tt.cc.com.ttmvvm.model.page.DetailVo
 import tt.cc.com.ttmvvm.model.page.MovieVo
 
 /**
@@ -25,4 +26,7 @@ interface Api {
 
     @POST("api/page/movies")
     fun getMovies(@Query("page") page: Int): Observable<Response<List<MovieVo>>>
+
+    @POST("api/page/moviesMore")
+    fun getMoviesMore(@Query("page") page: Int, @Query("id") id: String): Observable<Response<DetailVo>>
 }

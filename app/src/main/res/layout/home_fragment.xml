@@ -29,12 +29,12 @@
                 app:layout_constraintTop_toBottomOf="@id/home_view_pager"
                 android:id="@+id/rv_title"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="40dp">
 
             <android.support.v7.widget.CardView
                     android:layout_margin="5dp"
                     app:cardCornerRadius="2dp"
-                    app:cardElevation="2dp"
+                    app:cardElevation="1dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -46,8 +46,9 @@
                         android:padding="5dp">
 
                     <TextView
+                            android:layout_marginLeft="5dp"
                             android:layout_width="2dp"
-                            android:layout_height="20dp"
+                            android:layout_height="15dp"
                             android:background="@color/main_red"/>
 
                     <TextView
@@ -62,17 +63,36 @@
 
         </RelativeLayout>
 
-
-        <android.support.v7.widget.RecyclerView
-                app:layout_constraintTop_toBottomOf="@id/rv_title"
-                app:bindRecItems="@{viewModel.recItems}"
-                app:bindLayoutManager="@{viewModel.layoutManager}"
-                app:bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
-                android:layout_width="match_parent"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                app:srlEnableRefresh="false"
+                app:isLoading="@{viewModel.isLoading}"
+                app:loadMore="@{viewModel.onLoadMore}"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_title"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                app:srlPrimaryColor="@color/white"
+                app:srlAccentColor="@android:color/white"
+                app:srlEnablePreviewInEditMode="true">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                    app:bindRecItems="@{viewModel.recItems}"
+                    app:bindLayoutManager="@{viewModel.layoutManager}"
+                    app:bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
+                    app:itemListener="@{viewModel.itemClickListener}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+            </android.support.v7.widget.RecyclerView>
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    app:srlTextSizeTitle="12sp"
+                    android:layout_height="30dp"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>

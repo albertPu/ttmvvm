@@ -21,13 +21,17 @@ import java.util.ArrayList;
  */
 public class MultiRecyclerViewAdapter {
 
-    @BindingAdapter({"bindRecItems", "bindLayoutManager", "bindLifecycleOwner"})
-    public static <T> void bindRecItems(RecyclerView recyclerView, LiveData<ArrayList<MultiRecItem<T>>> data, RecyclerView.LayoutManager layoutManager, LifecycleOwner lifecycleOwner) {
+    @BindingAdapter({"bindRecItems", "bindLayoutManager", "bindLifecycleOwner", "itemListener"})
+    public static <T> void bindRecItems(RecyclerView recyclerView,
+                                        LiveData<ArrayList<MultiRecItem<T>>> data,
+                                        RecyclerView.LayoutManager layoutManager,
+                                        LifecycleOwner lifecycleOwner,
+                                        OnRVItemClickListener itemListener) {
         if (data.getValue().size() == 0) {
 
         } else if (data.getValue().size() == 1) {
             if (recyclerView.getAdapter() == null) {
-                final SingleRecyclerAdapter<T> adapter = new SingleRecyclerAdapter<>(data.getValue().get(0), recyclerView.getContext());
+                final SingleRecyclerAdapter<T> adapter = new SingleRecyclerAdapter<>(data.getValue().get(0), recyclerView.getContext(), itemListener);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
                 data.observe(lifecycleOwner, new Observer<ArrayList<MultiRecItem<T>>>() {
@@ -39,7 +43,7 @@ public class MultiRecyclerViewAdapter {
             }
         } else {
             if (recyclerView.getAdapter() == null) {
-                final MultiRecyclerAdapter<T> adapter = new MultiRecyclerAdapter<>(data, recyclerView.getContext());
+                final MultiRecyclerAdapter<T> adapter = new MultiRecyclerAdapter<>(data, recyclerView.getContext(), itemListener);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
                 data.observe(lifecycleOwner, new Observer<ArrayList<MultiRecItem<T>>>() {
@@ -57,10 +61,12 @@ public class MultiRecyclerViewAdapter {
 
         MultiRecItem<T> data;
         private Context context;
+        OnRVItemClickListener itemListener;
 
-        SingleRecyclerAdapter(MultiRecItem<T> data, Context context) {
+        SingleRecyclerAdapter(MultiRecItem<T> data, Context context, OnRVItemClickListener itemListener) {
             this.data = data;
             this.context = context;
+            this.itemListener = itemListener;
         }
 
         @NonNull
@@ -73,10 +79,16 @@ public class MultiRecyclerViewAdapter {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int position) {
             if (viewHolder instanceof SingleRecyclerViewHolder) {
                 ((SingleRecyclerViewHolder) viewHolder).bind.setVariable(BR.item, data.getData().get(position));
                 ((SingleRecyclerViewHolder) viewHolder).bind.executePendingBindings();
+                ((SingleRecyclerViewHolder) viewHolder).bind.getRoot().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onItemClick(viewHolder.itemView, position, data.getData().get(position));
+                    }
+                });
             }
         }
 
@@ -107,10 +119,12 @@ public class MultiRecyclerViewAdapter {
         LiveData<ArrayList<MultiRecItem<T>>> data;
         Context context;
         ObservableArrayList<DataTypeBean> dataTypeBeans;
+        OnRVItemClickListener itemListener;
 
-        MultiRecyclerAdapter(LiveData<ArrayList<MultiRecItem<T>>> data, Context context) {
+        MultiRecyclerAdapter(LiveData<ArrayList<MultiRecItem<T>>> data, Context context, OnRVItemClickListener itemListener) {
             this.data = data;
             this.context = context;
+            this.itemListener = itemListener;
             dataTypeBeans = resolveDatas(data.getValue());
         }
 
@@ -121,8 +135,13 @@ public class MultiRecyclerViewAdapter {
             RecyclerView.ViewHolder viewHolder = null;
             for (DataTypeBean dataTypeBean : dataTypeBeans) {
                 if (dataTypeBean.getItemType() == type) {
-                    binding = DataBindingUtil.inflate(LayoutInflater.from(context), dataTypeBean.res, viewGroup, false);
-                    viewHolder = new MultiRecyclerViewHolder(binding.getRoot(), binding);
+                    if (dataTypeBean.data == null) {
+                        View inflate = LayoutInflater.from(context).inflate(dataTypeBean.res, viewGroup, false);
+                        viewHolder = new MultiRecyclerViewHolder(inflate, null);
+                    } else {
+                        binding = DataBindingUtil.inflate(LayoutInflater.from(context), dataTypeBean.res, viewGroup, false);
+                        viewHolder = new MultiRecyclerViewHolder(binding.getRoot(), binding);
+                    }
                     break;
                 }
             }
@@ -130,10 +149,18 @@ public class MultiRecyclerViewAdapter {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int position) {
             if (viewHolder instanceof MultiRecyclerViewHolder) {
-                ((MultiRecyclerViewHolder) viewHolder).getBinding().setVariable(BR.item, dataTypeBeans.get(position).data);
-                ((MultiRecyclerViewHolder) viewHolder).getBinding().executePendingBindings();
+                if (((MultiRecyclerViewHolder) viewHolder).getBinding() != null) {
+                    ((MultiRecyclerViewHolder) viewHolder).getBinding().setVariable(BR.item, dataTypeBeans.get(position).data);
+                    ((MultiRecyclerViewHolder) viewHolder).getBinding().executePendingBindings();
+                }
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onItemClick(viewHolder.itemView, position, dataTypeBeans.get(position).data);
+                    }
+                });
             }
         }
 
@@ -208,11 +235,18 @@ public class MultiRecyclerViewAdapter {
                 } else {
                     throw new IllegalArgumentException("MultiRecItem layout Not the same");
                 }
-                for (T v : t.getData()) {
-                    DataTypeBean dataTypeBean = new DataTypeBean(t.getRes(), v, position, itemType);
-                    position++;
+                if (t.getData().size() == 0) {
+                    DataTypeBean dataTypeBean = new DataTypeBean(t.getRes(), null, position, itemType);
                     beans.add(dataTypeBean);
+                    position++;
+                } else {
+                    for (T v : t.getData()) {
+                        DataTypeBean dataTypeBean = new DataTypeBean(t.getRes(), v, position, itemType);
+                        position++;
+                        beans.add(dataTypeBean);
+                    }
                 }
+
             }
             return beans;
         }

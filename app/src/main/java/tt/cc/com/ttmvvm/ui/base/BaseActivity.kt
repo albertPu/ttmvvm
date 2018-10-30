@@ -27,6 +27,8 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+
+
     /**
      * 更变状态栏文字颜色
      * @param isDark

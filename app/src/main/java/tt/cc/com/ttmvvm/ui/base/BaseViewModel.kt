@@ -2,6 +2,7 @@ package tt.cc.com.ttmvvm.ui.base
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModel
+import tt.cc.com.ttmvvm.ui.adapter.reclcerview.OnRVItemClickListener
 import java.lang.ref.WeakReference
 
 /**
@@ -10,6 +11,8 @@ import java.lang.ref.WeakReference
 open class BaseViewModel : ViewModel() {
 
     var lifecycleOwner: WeakReference<LifecycleOwner>? = null
+
+
 
     override fun onCleared() {
         super.onCleared()
