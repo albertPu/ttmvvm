@@ -19,7 +19,7 @@ import java.lang.ref.WeakReference
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     companion object {
-        var START = OnRVItemClickListener { rootView, position, data ->
+        var start = OnRVItemClickListener { rootView, position, data ->
             val intent = Intent(rootView.context, VideoActivity::class.java)
             EventBus.getDefault().postSticky(data)
             rootView.context?.let {

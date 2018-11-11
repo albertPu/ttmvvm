@@ -2,11 +2,8 @@ package tt.cc.com.ttmvvm.ui.main.home
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.*
-import android.databinding.ObservableArrayList
-import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import io.reactivex.rxkotlin.subscribeBy
 import tt.cc.com.ttmvvm.R
@@ -17,7 +14,6 @@ import tt.cc.com.ttmvvm.net.Api
 import tt.cc.com.ttmvvm.net.ApiStore
 import tt.cc.com.ttmvvm.net.ResponseTransformer
 import tt.cc.com.ttmvvm.ui.adapter.reclcerview.MultiRecItem
-import tt.cc.com.ttmvvm.ui.adapter.reclcerview.OnRVItemClickListener
 import tt.cc.com.ttmvvm.ui.adapter.viewpage.MuPagerItem
 import tt.cc.com.ttmvvm.ui.base.BaseViewModel
 import tt.cc.com.ttmvvm.utlis.showToast
@@ -34,6 +30,7 @@ class HomeViewModel : BaseViewModel(), LifecycleObserver {
 
     var isLoading = MutableLiveData<Boolean>().also { it.value = false }
     var page = 0
+
 
     @SuppressLint("CheckResult")
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -63,7 +60,8 @@ class HomeViewModel : BaseViewModel(), LifecycleObserver {
     var onLoadMore = OnLoadMoreListener {
         load()
     }
-    var itemClickListener = HomeFragment.START
+
+    var itemClickListener = HomeFragment.start
 
     @SuppressLint("CheckResult")
     fun onClick(view: View) {
