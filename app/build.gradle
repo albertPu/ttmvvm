@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 
 
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -29,6 +30,10 @@ android {
     }
     dataBinding {
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
 
@@ -65,4 +70,7 @@ dependencies {
     // 视屏播放器
     implementation 'com.shuyu:GSYVideoPlayer:2.1.1'
     implementation 'org.greenrobot:eventbus-annotation-processor:3.0.1'
+    //BRVAH
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
 }

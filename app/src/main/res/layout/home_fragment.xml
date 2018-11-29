@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
-                app:pageItems="@{viewModel.pageItems}"
+                pageItems="@{viewModel.pageItems}"
                 >
         </android.support.v4.view.ViewPager>
 
@@ -66,8 +66,8 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refreshLayout"
                 app:srlEnableRefresh="false"
-                app:isLoading="@{viewModel.isLoading}"
-                app:loadMore="@{viewModel.onLoadMore}"
+                isLoading="@{viewModel.isLoading}"
+                loadMore="@{viewModel.onLoadMore}"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rv_title"
@@ -78,13 +78,14 @@
                 app:srlEnablePreviewInEditMode="true">
 
             <android.support.v7.widget.RecyclerView
-                    app:bindRecItems="@{viewModel.recItems}"
-                    app:bindLayoutManager="@{viewModel.layoutManager}"
-                    app:bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
-                    app:itemListener="@{viewModel.itemClickListener}"
+                    bindItemType="@{viewModel.recItems}"
+                    bindLayoutManager="@{viewModel.layoutManager}"
+                    bindItemListener="@{viewModel.itemClickListener}"
+                    bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
+                    bindData="@{viewModel.movieVos}"
+                    bindChildClickListener="@{viewModel.itemClickClickListener}"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
+                    android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
 
             <com.scwang.smartrefresh.layout.footer.ClassicsFooter

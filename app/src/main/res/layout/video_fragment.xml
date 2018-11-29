@@ -22,17 +22,18 @@
 
         <ImageView
                 android:layout_below="@id/mVideoView"
-                app:bindBlurImageUrl="@{viewModel.imgUrl}"
+                bindBlurImageUrl="@{viewModel.imgUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 />
 
         <android.support.v7.widget.RecyclerView
-                app:bindRecItems="@{viewModel.items}"
-                app:bindLayoutManager="@{viewModel.layoutManager}"
-                app:bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
-                app:itemListener="@{viewModel.itemClickListener}"
+                bindItemType="@{viewModel.items}"
+                bindLayoutManager="@{viewModel.layoutManager}"
+                bindLifecycleOwner="@{viewModel.lifecycleOwner.get()}"
+                bindItemListener="@{viewModel.itemClickListener}"
+                bindData="@{viewModel.movieVos}"
                 android:layout_below="@id/mVideoView"
                 android:id="@+id/ry_detail"
                 android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.widget.TextView
 import android.widget.Toast
 import tt.cc.com.ttmvvm.TtApplication
+import tt.cc.com.ttmvvm.ui.adapter.reclcerview.IMultiItemEntity
 
 
 fun ViewModel.getDrawable(res: Int): Drawable? {
@@ -16,6 +17,11 @@ fun ViewModel.getDrawable(res: Int): Drawable? {
 
 
 fun ViewModel.getColor(res: Int): Int? {
+    return TtApplication.context?.resources?.getColor(res)
+}
+
+
+fun IMultiItemEntity.getColor(res: Int): Int? {
     return TtApplication.context?.resources?.getColor(res)
 }
 

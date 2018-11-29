@@ -14,7 +14,7 @@ public class ApiStore {
     private static Retrofit retrofit;
     private static OkHttpClient okHttpClient;
     //private static final String BASE_URL = "http://192.168.0.9:8080/";
-    private static final String BASE_URL = "http://172.16.6.53:8080/";
+    private static final String BASE_URL = "http://192.168.0.9:8080/";
     private static final long DEFAULT_TIME_OUT = 20;
     private static final long DEFAULT_READ_TIME_OUT = 20;
 

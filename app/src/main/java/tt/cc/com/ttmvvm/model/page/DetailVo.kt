@@ -1,6 +1,6 @@
 package tt.cc.com.ttmvvm.model.page
 
-class DetailVo {
+class DetailVo  {
     var videoList = ArrayList<MovieVo>()
     var discussList = ArrayList<DiscussVo>()
 }

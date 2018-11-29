@@ -22,7 +22,7 @@ import java.util.List;
 public class MutableAdapter<T> extends PagerAdapter {
 
 
-    @BindingAdapter({"app:pageItems", "bindLifecycleOwner"})
+    @BindingAdapter({"pageItems", "bindLifecycleOwner"})
     public static <T> void bindPageAdapter(ViewPager viewPager, LiveData<ArrayList<MuPagerItem<T>>> data, LifecycleOwner owner) {
         if (viewPager.getAdapter() == null) {
             final MutableAdapter adapter = new MutableAdapter(data, viewPager.getContext());

@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.video_fragment.*
 import tt.cc.com.ttmvvm.R
 import tt.cc.com.ttmvvm.databinding.VideoFragmentBinding
 import tt.cc.com.ttmvvm.model.page.MovieVo
-import tt.cc.com.ttmvvm.ui.adapter.reclcerview.MultiRecItem
 import tt.cc.com.ttmvvm.ui.base.BaseFragment
 import tt.cc.com.ttmvvm.view.CleanLeakUtils
 import tt.cc.com.ttmvvm.view.VideoListener
@@ -66,10 +65,10 @@ class VideoFragment : BaseFragment<VideoFragmentBinding>() {
                 .centerCrop()
                 .into(imageView)
             mVideoView.thumbImageView = imageView
-            bind?.viewModel?.items.apply {
+           /* bind?.viewModel?.items.apply {
                 bind?.viewModel?.movieVos!![0].data.add(any)
                 this!!.value = bind?.viewModel?.movieVos
-            }
+            }*/
             setVideo(any.videoPlayUrl)
         }
 
